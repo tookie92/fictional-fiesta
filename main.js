@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {RoomEnvironment} from 'three/examples/jsm/environments/RoomEnvironment';
+import {ARButton} from 'three/examples/jsm/webxr/ARButton';
 
 let mixer;
 const container = document.getElementById('container');
@@ -13,6 +14,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.xr.enabled = true;
 container.appendChild(renderer.domElement);
 
 //Scene
@@ -20,6 +22,9 @@ const pmremGenerator = new THREE.PMREMGenerator( renderer );
 const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0xbfe3dd );
 scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.05 ).texture;
+
+//xr
+document.body.appendChild(ARButton.createButton( renderer ) );
 
 
 
